@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+  <SOAP-ENV:Header xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/">
+    <wsse:Security xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" soap:mustUnderstand="1"/>
+  </SOAP-ENV:Header>
+  <soap:Body xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" wsu:Id="artificial_id">
+    <Trzba xmlns="http://fs.mfcr.cz/eet/schema/v3">
+      <Hlavicka dat_odesl="2017-03-04T13:16:31+01:00" prvni_zaslani="true" uuid_zpravy="7843d752-d137-470c-af2c-6b317ce609af"/>
+      <Data celk_trzba="0.00" dat_trzby="2017-02-04T13:09:55+00:00" dic_popl="CZ00000019" id_pokl="p1_czk" id_provoz="11" porad_cis="158" rezim="0"/>
+      <KontrolniKody>
+        <pkp cipher="RSA2048" digest="SHA256" encoding="base64">K/Jdtya/dZnZezhdI695kuQrS5WplQ78pJ+mpUuDXLZ4T6efyjCmYOYntG7GJ4nIW1m9K7cWuZQqmHnzPJsilgrX9hmHyAHHEztKdxnUUNFzg7jXsk/pP1RnNe8bfzLXIRc7OBDu9XlcbdltDqMcl7hTGZHzPN/s2/V/OAnzpT7rjzgGid9KTcwqEL2LEbTTxGbPmFsEKAgAsSrmhsQhgjwuyVmWTI17sWkvBaSE7y5pvTs81trszSrgwTRZ3PFg7MulpSA86fvZeuuqRjOrQGBMEGQJ3ade4kPV/f8edDCVb5B3mE9ZoDSsQpS0pZ8smHHcmrzkE5ZG6WxgBBsp9Q==</pkp>
+        <bkp digest="SHA1" encoding="base16">490A3B21-40AB90CC-43A91EA7-AE96C145-358FC380</bkp>
+      </KontrolniKody>
+    </Trzba>
+  </soap:Body>
+</soap:Envelope>
