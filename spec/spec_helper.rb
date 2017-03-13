@@ -1,5 +1,6 @@
 $LOAD_PATH.unshift File.expand_path("../../lib", __FILE__)
-require 'eet'
+
+require_relative '../lib/eet'
 require 'vcr'
 
 VCR.configure do |config|
