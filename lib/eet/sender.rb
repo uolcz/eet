@@ -7,7 +7,7 @@ module Eet
     ENDPOINT = :odeslani_trzby
     attr_reader :message
 
-    def call(xml, wsdl = WSDL, timeout = TIMEOUT, endpoint = ENDPOINT)
+    def send_to_playground(xml, wsdl = WSDL, timeout = TIMEOUT, endpoint = ENDPOINT)
       client = Savon.client(wsdl: wsdl, open_timeout: timeout)
       response = client.call(endpoint, xml: xml)
       response
