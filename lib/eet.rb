@@ -5,8 +5,6 @@ require 'eet/utils'
 
 module Eet
   def self.test_playground
-    certificate = OpenSSL::PKCS12.new(File.open('spec/fixtures/EET_CA1_Playground-CZ00000019.p12'), 'eet')
-
     data = { celk_trzba: '0.00',
              dic_popl: 'CZ00000019',
              id_pokl: 'p1',
@@ -15,32 +13,16 @@ module Eet
              rezim: '0' }
     message = Message.new(data)
 
-    message.pkp = Utils.create_pkp(message, certificate)
+    message.pkp = Utils.create_pkp(message, playground_certificate)
     message.bkp = Utils.create_bkp(message.pkp)
 
-    signed_message = Utils.sign(message.to_xml, certificate)
+    signed_message = Utils.sign(message.to_xml, playground_certificate)
 
     sender = Sender.new
     response = sender.send_to_playground(signed_message)
   end
 
-  def self.test_production
-    certificate = OpenSSL::PKCS12.new(File.open('spec/fixtures/EET_CA1_Playground-CZ00000019.p12'), 'eet')
-
-    data = { celk_trzba: '0.00',
-             dic_popl: 'CZ00000019',
-             id_pokl: 'p1',
-             id_provoz: '11',
-             porad_cis: '1',
-             rezim: '0' }
-    message = Message.new(data)
-
-    message.pkp = Utils.create_pkp(message, certificate)
-    message.bkp = Utils.create_bkp(message.pkp)
-
-    signed_message = Utils.sign(message.to_xml, certificate)
-
-    sender = Sender.new
-    response = sender.send_to_production(signed_message)
+  def self.playground_certificate
+    OpenSSL::PKCS12.new(File.open('spec/fixtures/EET_CA1_Playground-CZ00000019.p12'), 'eet')
   end
 end
