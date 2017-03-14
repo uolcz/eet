@@ -1,41 +1,97 @@
 # Eet
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/eet_simple_sender`. To experiment with that code, run `bin/console` for an interactive prompt.
+Hi everybody! This is Ruby wrapper for [Czech registration of sales system - EET](http://www.etrzby.cz/cs/index)
 
-TODO: Delete this and the text above, and describe your gem
+If you want to help Czech republic avoid bankruptcy please register all your cash registers and have fun!
 
 ## Installation
 
-Add this line to your application's Gemfile:
-
-```ruby
-gem 'eet'
-```
-
-And then execute:
-
-    $ bundle
-
-Or install it yourself as:
-
-    $ gem install eet
+You know how to install a gem right? Ok..
 
 ## Usage
 
-TODO: Write usage instructions here
+Let's see some demo first. Fire up your console and type:
 
-## Development
+```ruby
+require 'eet'
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+Eet.test_playground.body
+```
+You should see something like this:
+```shell
+=> {:odpoved=>{:hlavicka=>{:@uuid_zpravy=>"e21047f2-185d-4f58-a3ca-52679f8c3cb2", :@bkp=>"677503F4-58C5AE1E-0101736A-450F4D7C-31ABAED9", :@dat_prij=>"2017-03-14T21:45:27+01:00"}, :potvrzeni=>{:@fik=>"00dc6277-be9d-4bbb-9824-9fad513168ea-ff", :@test=>"true"}},
+ :"@wsu:id"=>"Body-b64214c0-cf1c-42e1-91ec-495c34c27e65"}
+```
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+**Cool right!? You just sended your first message to EET playground and got back some fik!** That means it's not that hard and you can do it. Now follow me:
 
-## Contributing
+### Real usage
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/eet.
+First you of all you need to create a EET message:
+
+```ruby
+require 'eet'
+
+message = Eet::Message.new
+
+# Now to set message attributes use classic:
+message.celk_trzba = '100.00'
+message.dic_popl = 'CZ00000019'
+message.id_pokl = 'p1'
+message.id_provoz = '11'
+message.porad_cis = '1'
+message.rezim = '0'
+
+# or pass a hash to #new method as you would do with ActiveModel model:
+message = Eet::Message.new({ celk_trzba: '0.00',
+                             dic_popl: 'CZ00000019',
+                             id_pokl: 'p1',
+                             id_provoz: '11',
+                             porad_cis: '1',
+                             rezim: '0' })
+```
+
+Attributes above are the basic ones to form valid message. Without these the message won't be valid and you won't get any fik back. Setting other attributes works the same. Visit [official EET documentation](http://www.etrzby.cz/cs/technicka-specifikace) for theirs full list.
+
+To create and set security codes(pkp & bkp) use Utils module:
+```ruby
+certificate = Eet.playground_certificate
+
+message.pkp = Eet::Utils.create_pkp(message, certificate)
+message.bkp = Eet::Utils.create_bkp(message.pkp)
+```
+
+To sign the message:
+```ruby
+signed_message = Eet::Utils.sign(message.to_xml, certificate)
+```
+
+And finally, to send a message:
+```ruby
+sender = Eet::Sender.new
+response = sender.send_to_playground(signed_message)
+```
+
+And that's it! This is the same code used inside of `Eet.test_playground` method. Now inspect response body to get your fik!
+
+When you are ready to switch to production just use the `::send_to_production` method:
+```ruby
+sender = Eet::Sender.new
+response = sender.send_to_production(signed_message)
+```
+But you will need to create security codes and sign the message with your own certificate. Certificate has to be `OpenSS::PKCS12` instance which you can initialize like this:
+```ruby
+OpenSSL::PKCS12.new(File.open('EET_CA1_Playground-CZ00000019.p12'), 'eet') # (substitute your path and password)
+```
 
 
-## License
 
-The gem is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).
+
+
+
+
+
+
+
+
 
