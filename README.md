@@ -1,4 +1,5 @@
 # Eet
+[![Build Status](https://travis-ci.org/ucetnictvi-on-line/eet.svg?branch=master)](https://travis-ci.org/ucetnictvi-on-line/eet)
 
 Hi everybody! This is Ruby wrapper for [Czech registration of sales system - EET](http://www.etrzby.cz/cs/index)
 
