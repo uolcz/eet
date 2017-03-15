@@ -50,7 +50,7 @@ message = Eet::Message.new({ celk_trzba: '0.00',
                              porad_cis: '1' })
 ```
 
-Attributes above are the basic ones you need to always provide to form valid message. Without these the message won't be valid and you won't get any fik back. Setting other attributes works the same. Visit [official EET documentation](http://www.etrzby.cz/cs/technicka-specifikace) for theirs full list.
+Attributes above are the basic ones you always need to provide to form valid message. Without these the message won't be valid and you won't get any fik back. Setting other attributes works the same. Visit [official EET documentation](http://www.etrzby.cz/cs/technicka-specifikace) for theirs full list.
 
 To create and set security codes(pkp & bkp) use Utils module:
 ```ruby
