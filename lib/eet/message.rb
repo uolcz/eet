@@ -70,11 +70,7 @@ module Eet
     end
 
     def dat_odesl
-      if @dat_odesl
-        @dat_odesl.strftime(DATE_FORMAT)
-      else
-        Time.now.strftime(DATE_FORMAT)
-      end
+      @dat_odesl ||= Time.now.strftime(DATE_FORMAT)
     end
 
     def prvni_zaslani
@@ -86,11 +82,7 @@ module Eet
     end
 
     def dat_trzby
-      if @dat_trzby
-        @dat_trzby.strftime(DATE_FORMAT)
-      else
-        Time.now.strftime(DATE_FORMAT)
-      end
+      @dat_trzby ||= Time.now.strftime(DATE_FORMAT)
     end
 
     def head_attributes

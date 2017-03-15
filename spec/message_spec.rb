@@ -66,10 +66,10 @@ RSpec.describe Eet::Message do
       expect(msg.dat_odesl).to eq '2017-01-01T10:00:00+01:00'
     end
 
-    it 'returns given value formatted apropriately' do
-      msg = Eet::Message.new(dat_odesl: Time.parse('5.10.2018 15:00'))
+    it 'returns given value' do
+      msg = Eet::Message.new(dat_odesl: '1.1.2017')
 
-      expect(msg.dat_odesl).to eq '2018-10-05T15:00:00+02:00'
+      expect(msg.dat_odesl).to eq '1.1.2017'
     end
   end
 
@@ -110,14 +110,18 @@ RSpec.describe Eet::Message do
 
   describe '#head_attributes' do
     it 'returns hash with attributes for Hlavicka element' do
-      msg = Eet::Message.new(uuid_zpravy: '--uuid--', dat_odesl: Time.parse('1.1.2017'), prvni_zaslani: true, overeni: false )
+      msg = Eet::Message.new(uuid_zpravy: '--uuid--',
+                             dat_odesl: Time.parse('1.1.2017').strftime(Eet::Message::DATE_FORMAT),
+                             prvni_zaslani: true, overeni: false )
 
       expect(msg.head_attributes)
         .to match({ uuid_zpravy: '--uuid--', dat_odesl: "2017-01-01T00:00:00+01:00", prvni_zaslani: true, overeni: false })
     end
 
     it 'omits attributes which value is nil' do
-      msg = Eet::Message.new(uuid_zpravy: '--uuid--', dat_odesl: Time.parse('1.1.2017'), prvni_zaslani: true)
+      msg = Eet::Message.new(uuid_zpravy: '--uuid--',
+                             dat_odesl: Time.parse('1.1.2017').strftime(Eet::Message::DATE_FORMAT),
+                             prvni_zaslani: true)
 
       expect(msg.head_attributes)
         .to match({ uuid_zpravy: '--uuid--', dat_odesl: "2017-01-01T00:00:00+01:00", prvni_zaslani: true })
@@ -131,7 +135,7 @@ RSpec.describe Eet::Message do
                              id_provoz: '1',
                              id_pokl: '11',
                              porad_cis: '1',
-                             dat_trzby: Time.parse('1.1.2017'),
+                             dat_trzby: Time.parse('1.1.2017').strftime(Eet::Message::DATE_FORMAT),
                              celk_trzba: '100',
                              zakl_nepodl_dph: '100',
                              zakl_dan1: '100',

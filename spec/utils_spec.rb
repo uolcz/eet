@@ -6,7 +6,7 @@ RSpec.describe Eet::Utils do
                        id_provoz: '181',
                        id_pokl: '00/2535/CN58',
                        porad_cis: '0/2482/IE25',
-                       dat_trzby: Time.parse('2016-12-07T22:01:00+01:00'),
+                       dat_trzby: Time.parse('2016-12-07T22:01:00+01:00').strftime(Eet::Message::DATE_FORMAT),
                        celk_trzba: '87988.00' })
   end
 
