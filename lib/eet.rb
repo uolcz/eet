@@ -9,8 +9,8 @@ module Eet
              dic_popl: 'CZ00000019',
              id_pokl: 'p1',
              id_provoz: '11',
-             porad_cis: '1',
-             rezim: '0' }
+             porad_cis: '1' }
+
     message = Message.new(data)
 
     message.pkp = Utils.create_pkp(message, playground_certificate)

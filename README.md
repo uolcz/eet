@@ -15,7 +15,7 @@ Let's see some demo first. Fire up your console and type:
 ```ruby
 require 'eet'
 
-Eet.test_playground.body
+puts Eet.test_playground.body
 ```
 You should see something like this:
 ```shell
@@ -40,18 +40,16 @@ message.dic_popl = 'CZ00000019'
 message.id_pokl = 'p1'
 message.id_provoz = '11'
 message.porad_cis = '1'
-message.rezim = '0'
 
 # or pass a hash to #new method as you would do with ActiveModel model:
 message = Eet::Message.new({ celk_trzba: '0.00',
                              dic_popl: 'CZ00000019',
                              id_pokl: 'p1',
                              id_provoz: '11',
-                             porad_cis: '1',
-                             rezim: '0' })
+                             porad_cis: '1' })
 ```
 
-Attributes above are the basic ones to form valid message. Without these the message won't be valid and you won't get any fik back. Setting other attributes works the same. Visit [official EET documentation](http://www.etrzby.cz/cs/technicka-specifikace) for theirs full list.
+Attributes above are the basic ones you need to always provide to form valid message. Without these the message won't be valid and you won't get any fik back. Setting other attributes works the same. Visit [official EET documentation](http://www.etrzby.cz/cs/technicka-specifikace) for theirs full list.
 
 To create and set security codes(pkp & bkp) use Utils module:
 ```ruby
@@ -84,14 +82,24 @@ But you will need to create security codes and sign the message with your own ce
 OpenSSL::PKCS12.new(File.open('EET_CA1_Playground-CZ00000019.p12'), 'eet') # (substitute your path and password)
 ```
 
+#### Default values
 
+`Message` sets few default values for some of required attributes. These are:
 
+* `uuid_zpravy` - `SecureRandom.uuid`
+* `dat_odesl` - `Time.now` formatted to proper eet date format
+* `prvni_zaslani` - `true`
+* `rezim` - `0`
+* `dat_trzby` - `Time.now` formatted to proper eet date format
 
+Overwrite them at will.
 
+#### Message XML
 
+Want to get the message xml? Call `#to_xml` on the message at any time. It returns classic `Nokogiri` document
 
+## Read the official docs please
 
+We urge everybody to read the official EET docs before implementing any service connected to it. Sometimes the case can get tricky. After all there are 27 settable attributes for the message! And this is just a dumb API wrapper which let's you send anything you want...
 
-
-
-
+**http://www.etrzby.cz/cs/technicka-specifikace**
