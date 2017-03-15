@@ -102,10 +102,19 @@ RSpec.describe Eet::Message do
   end
 
   describe '#dat_trzby' do
-    it 'returns given value but formatted' do
-      
+    it 'returns default formatted time if no time given' do
+      stubbed_time = Time.parse('1.1.2017 10:00 UTC')
+      allow(Time).to receive(:now) { stubbed_time }
+      msg = Eet::Message.new()
+
+      expect(msg.dat_trzby).to eq '2017-01-01T10:00:00+00:00'
     end
-    
+
+    it 'returns given value' do
+      msg = Eet::Message.new(dat_trzby: '1.1.2017')
+
+      expect(msg.dat_trzby).to eq '1.1.2017'
+    end
   end
 
   describe '#head_attributes' do
