@@ -59,11 +59,11 @@ RSpec.describe Eet::Message do
 
   describe '#dat_odesl' do
     it 'returns default formatted time if no time given' do
-      stubbed_time = Time.parse('1.1.2017 10:00')
+      stubbed_time = Time.parse('1.1.2017 10:00 UTC')
       allow(Time).to receive(:now) { stubbed_time }
       msg = Eet::Message.new()
 
-      expect(msg.dat_odesl).to eq '2017-01-01T10:00:00+01:00'
+      expect(msg.dat_odesl).to eq '2017-01-01T10:00:00+00:00'
     end
 
     it 'returns given value' do
@@ -111,20 +111,20 @@ RSpec.describe Eet::Message do
   describe '#head_attributes' do
     it 'returns hash with attributes for Hlavicka element' do
       msg = Eet::Message.new(uuid_zpravy: '--uuid--',
-                             dat_odesl: Time.parse('1.1.2017').strftime(Eet::Message::DATE_FORMAT),
+                             dat_odesl: Time.parse('1.1.2017 00:00 UTC').strftime(Eet::Message::DATE_FORMAT),
                              prvni_zaslani: true, overeni: false )
 
       expect(msg.head_attributes)
-        .to match({ uuid_zpravy: '--uuid--', dat_odesl: "2017-01-01T00:00:00+01:00", prvni_zaslani: true, overeni: false })
+        .to match({ uuid_zpravy: '--uuid--', dat_odesl: "2017-01-01T00:00:00+00:00", prvni_zaslani: true, overeni: false })
     end
 
     it 'omits attributes which value is nil' do
       msg = Eet::Message.new(uuid_zpravy: '--uuid--',
-                             dat_odesl: Time.parse('1.1.2017').strftime(Eet::Message::DATE_FORMAT),
+                             dat_odesl: Time.parse('1.1.2017 00:00 UTC').strftime(Eet::Message::DATE_FORMAT),
                              prvni_zaslani: true)
 
       expect(msg.head_attributes)
-        .to match({ uuid_zpravy: '--uuid--', dat_odesl: "2017-01-01T00:00:00+01:00", prvni_zaslani: true })
+        .to match({ uuid_zpravy: '--uuid--', dat_odesl: "2017-01-01T00:00:00+00:00", prvni_zaslani: true })
     end
   end
 
@@ -135,7 +135,7 @@ RSpec.describe Eet::Message do
                              id_provoz: '1',
                              id_pokl: '11',
                              porad_cis: '1',
-                             dat_trzby: Time.parse('1.1.2017').strftime(Eet::Message::DATE_FORMAT),
+                             dat_trzby: Time.parse('1.1.2017 00:00 UTC').strftime(Eet::Message::DATE_FORMAT),
                              celk_trzba: '100',
                              zakl_nepodl_dph: '100',
                              zakl_dan1: '100',
@@ -158,7 +158,7 @@ RSpec.describe Eet::Message do
                     id_provoz: '1',
                     id_pokl: '11',
                     porad_cis: '1',
-                    dat_trzby: '2017-01-01T00:00:00+01:00',
+                    dat_trzby: '2017-01-01T00:00:00+00:00',
                     celk_trzba: '100',
                     zakl_nepodl_dph: '100',
                     zakl_dan1: '100',
@@ -177,12 +177,12 @@ RSpec.describe Eet::Message do
     end
 
     it 'omits attributes which value is nil' do
-      stubbed_time = Time.parse('1.1.2017 10:00')
+      stubbed_time = Time.parse('1.1.2017 10:00 UTC')
       allow(Time).to receive(:now) { stubbed_time }
       msg = Eet::Message.new(rezim: 1)
 
       expect(msg.data_attributes)
-        .to match({ rezim: 1, dat_trzby: '2017-01-01T10:00:00+01:00' })
+        .to match({ rezim: 1, dat_trzby: '2017-01-01T10:00:00+00:00' })
     end
   end
 end
