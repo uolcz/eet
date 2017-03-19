@@ -25,8 +25,8 @@ module Eet
 
     def self.sign(xml, certificate)
       signer = Signer.new(xml)
-      signer.cert = OpenSSL::X509::Certificate.new(certificate.certificate)
-      signer.private_key = OpenSSL::PKey::RSA.new(certificate.key, 'eet')
+      signer.cert = certificate.certificate
+      signer.private_key = certificate.key
 
       signer.security_node = signer.document.children.first.children.first.children.first
       signer.digest_algorithm = :sha256
