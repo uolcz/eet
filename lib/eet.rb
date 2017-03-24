@@ -23,6 +23,7 @@ module Eet
   end
 
   def self.playground_certificate
-    OpenSSL::PKCS12.new(File.open('spec/fixtures/EET_CA1_Playground-CZ00000019.p12'), 'eet')
+    cert = File.join(File.dirname(__dir__), 'spec', 'fixtures', 'EET_CA1_Playground-CZ00000019.p12')
+    OpenSSL::PKCS12.new(File.open(cert), 'eet')
   end
 end
