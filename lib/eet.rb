@@ -1,9 +1,12 @@
-require 'eet/version'
+require 'eet/client'
 require 'eet/message'
 require 'eet/sender'
 require 'eet/utils'
+require 'eet/version'
 
 module Eet
+  class UnknownEnvironmentError < StandardError; end
+
   def self.test_playground
     data = { celk_trzba: '0.00',
              dic_popl: 'CZ00000019',

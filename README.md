@@ -30,6 +30,25 @@ You should see something like this:
 
 First you of all you need to create a EET message:
 
+#### using Eet::Client
+
+```ruby
+require 'eet'
+
+data = { celk_trzba: '0.00',
+         dic_popl: 'CZ00000019',
+         id_pokl: 'p1',
+         id_provoz: '11',
+         porad_cis: '1' }
+
+certificate = OpenSSL::PKCS12.new(File.open('EET_CA1_Playground-CZ00000019.p12'), 'eet') # (substitute your path and password)
+
+client = Eet::Client.new(certificate, data)
+client.submit(:playground) # or :production
+```
+
+#### using individual classes directly
+
 ```ruby
 require 'eet'
 
