@@ -28,8 +28,6 @@ You should see something like this:
 
 ### Real usage
 
-First you of all you need to create a EET message:
-
 #### using Eet::Client
 
 ```ruby
@@ -48,6 +46,9 @@ client.submit(:playground) # or :production
 ```
 
 #### using individual classes directly
+
+First you of all you need to create a EET message:
+
 
 ```ruby
 require 'eet'
