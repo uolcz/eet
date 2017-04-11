@@ -30,6 +30,8 @@ You should see something like this:
 
 #### using Eet::Client
 
+##### using #submit
+
 ```ruby
 require 'eet'
 
@@ -43,6 +45,28 @@ certificate = OpenSSL::PKCS12.new(File.open('EET_CA1_Playground-CZ00000019.p12')
 
 client = Eet::Client.new(certificate, data)
 client.submit(:playground) # or :production
+```
+
+##### using #prepare_message and #register
+
+```ruby
+require 'eet'
+
+data = { celk_trzba: '0.00',
+         dic_popl: 'CZ00000019',
+         id_pokl: 'p1',
+         id_provoz: '11',
+         porad_cis: '1' }
+
+certificate = OpenSSL::PKCS12.new(File.open('EET_CA1_Playground-CZ00000019.p12'), 'eet') # (substitute your path and password)
+
+client = Eet::Client.new(certificate, data)
+client.prepare_message
+
+client.message.pkp
+client.message.bkp
+
+client.register(:playground)
 ```
 
 #### using individual classes directly
