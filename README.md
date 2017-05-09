@@ -69,6 +69,9 @@ client.message.bkp
 client.register(:playground)
 ```
 
+Always make sure to call prepare_message before register, otherwise
+MessageNotPrepared exception is raised when calling register.
+
 #### using individual classes directly
 
 First you of all you need to create a EET message:
