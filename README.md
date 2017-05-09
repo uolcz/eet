@@ -69,8 +69,8 @@ client.message.bkp
 client.register(:playground)
 ```
 
-Always make sure to call prepare_message before register, otherwise
-MessageNotPrepared exception is raised when calling register.
+Always make sure to call prepare_message before register. Calling register
+before prepare_message raises MessageNotPrepared exception.
 
 #### using individual classes directly
 
