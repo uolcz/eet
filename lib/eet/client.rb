@@ -15,6 +15,7 @@ module Eet
     #now you can continue with register action:
 
     #client.register(:production)
+    class MessageNotPrepared < StandardError; end
 
     attr_reader :certificate, :data, :message, :signed_message
 
@@ -39,7 +40,7 @@ module Eet
     end
 
     def register(environment)
-      return unless signed_message
+      raise MessageNotPrepared unless signed_message
 
       sender = Eet::Sender.new
 
