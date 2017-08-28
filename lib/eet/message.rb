@@ -103,7 +103,7 @@ module Eet
         celk_trzba: celk_trzba,
         zakl_nepodl_dph: zakl_nepodl_dph,
         zakl_dan1: zakl_dan1,
-        dan1: dan2,
+        dan1: dan1,
         zakl_dan2: zakl_dan2,
         dan2: dan2,
         zakl_dan3: zakl_dan3,
