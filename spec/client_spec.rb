@@ -17,5 +17,12 @@ RSpec.describe Eet::Client do
         client.submit(:nonexisting)
       }.to raise_error(Eet::UnknownEnvironmentError)
     end
+
+    it 'raises MessageNotPrepared error' do
+      client = Eet::Client.new(certificate, data)
+      expect {
+        client.register(:playground)
+      }.to raise_error(Eet::Client::MessageNotPrepared)
+    end
   end
 end
